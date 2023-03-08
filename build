@@ -12,7 +12,7 @@ cd TLinux-Kernel
 git clone --depth=1 https://$GITHUB_TOKEN@github.com/Tea-Droid/scripts-build
 cd scripts-build/x86
 #chmod +x setup
-#chmod +x build
+chmod +x build
 #./setup --aosp-clang
 #./build --aosp-clang --lto
 ./build
