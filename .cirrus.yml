@@ -10,10 +10,7 @@ task:
     platform: linux
     cpu: 8
     memory: 32G
-    volumes:
-      - /home/cirrus/ccache:/home/cirrus/ccache
-      - /home/cirrus/.config:/home/cirrus/.config
-      
+    
   build_script:
     - chmod +x build
     - bash build
