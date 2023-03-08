@@ -5,11 +5,12 @@ environment:
   PD_API_KEY: ENCRYPTED[ef22e868b09b1c4ef6c1e584af63dec140bfd829f5108a692de9121197859d475cd56206e167cc4b7c61e0182da81dfd]
 
 task:
+    timeout_in: 4h
   container:
     image: xealea/xea:02
     platform: linux
     cpu: 8
-    memory: 120G
+    memory: 80G
     volumes:
       - /home/cirrus/ccache:/home/cirrus/ccache
       - /home/cirrus/.config:/home/cirrus/.config
