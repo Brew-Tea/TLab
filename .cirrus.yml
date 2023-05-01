@@ -15,3 +15,13 @@ task:
     - chmod +x build
     - bash build
     
+task:
+  container:
+    image: xealea/toolchain:build
+    platform: linux
+    cpu: 8
+    memory: 32G
+    
+  build_script:
+    - chmod +x buildtar
+    - bash buildtar
