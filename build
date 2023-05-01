@@ -7,7 +7,7 @@ export KBUILD_BUILD_USER=TLinux
 export KBUILD_BUILD_HOST=LLC
 #git clone --depth=1 https://$GITHUB_TOKEN@github.com/Tea-Droid/TMunch-Kernel -b TS
 #cd TMunch-Kernel
-git clone --depth=1 https://$GITHUB_TOKEN@github.com/Tea-Droid/TLinux-Kernel
+git clone --depth=1 https://$GITHUB_TOKEN@github.com/Tea-Droid/TLinux-Kernel -b blazing
 cd TLinux-Kernel
 git clone --depth=1 https://$GITHUB_TOKEN@github.com/Tea-Droid/scripts-build
 cd scripts-build/x86
