@@ -1,6 +1,7 @@
 #!/bin/bash
 export token=$TOKEN
 export CI_CHANNEL_ID=-1001721818658
+apt-get install -y openssl libssl-dev
 # export TYPE=STABLE
 # export DEVICE=munch
 export KBUILD_BUILD_USER=TLinux
