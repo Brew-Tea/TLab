@@ -6,7 +6,7 @@ environment:
 
 task:
   container:
-    image: xealea/toolchain:build
+    image: xealea/kernel:build
     platform: linux
     cpu: 8
     memory: 32G
@@ -17,7 +17,7 @@ task:
     
 task:
   container:
-    image: xealea/toolchain:build
+    image: xealea/kernel:build
     platform: linux
     cpu: 8
     memory: 32G
