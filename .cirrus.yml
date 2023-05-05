@@ -23,8 +23,6 @@ task:
       libelf-dev:native libssl-dev:native bison \
       libssl-dev git zip flex cpio openssl \
       libncurses5-dev openjdk-11-jdk
-  
-  install_clang:
     - wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
     - echo "deb http://apt.llvm.org/jammy llvm-toolchain-jammy main" | tee /etc/apt/sources.list.d/llvm.list
     - apt-get -qq update
@@ -58,8 +56,6 @@ task:
       libelf-dev:native libssl-dev:native bison \
       libssl-dev git zip flex cpio openssl \
       libncurses5-dev openjdk-11-jdk
-  
-  install_clang:
     - wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
     - echo "deb http://apt.llvm.org/jammy llvm-toolchain-jammy main" | tee /etc/apt/sources.list.d/llvm.list
     - apt-get -qq update
