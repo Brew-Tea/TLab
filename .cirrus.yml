@@ -32,7 +32,7 @@ task:
     - for f in /usr/lib/llvm/bin/*; do sudo ln -sf "$f" /usr/bin; done
     - rm -rf /var/lib/apt/lists/*
     
-  build_debian_kernel:
+  build_debian:
     - export token=$TOKEN
     - git clone --depth=1 https://github.com/Brew-Tea/TLinux-Kernel -b blazing && cd TLinux-Kernel
     - wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
@@ -67,10 +67,9 @@ task:
     - for f in /usr/lib/llvm/bin/*; do sudo ln -sf "$f" /usr/bin; done
     - rm -rf /var/lib/apt/lists/*
     
-  build_archlinux_kernel:
+  build_archlinux:
     - export token=$TOKEN
     - git clone --depth=1 https://github.com/Brew-Tea/TLinux-Kernel -b blazing && cd TLinux-Kernel
     - wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
     - chmod +x build.sh
     - ./build.sh --archlinux
-    
