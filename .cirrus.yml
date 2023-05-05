@@ -29,8 +29,6 @@ task:
     - apt-get -qqy -t llvm-toolchain-jammy install clang clang-tidy clang-format lld
     - for f in /usr/lib/llvm/bin/*; do sudo ln -sf "$f" /usr/bin; done
     - rm -rf /var/lib/apt/lists/*
-    
-  build_debian:
     - export token=$TOKEN
     - git clone --depth=1 https://github.com/Brew-Tea/TLinux-Kernel -b blazing && cd TLinux-Kernel
     - wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
@@ -62,8 +60,6 @@ task:
     - apt-get -qqy -t llvm-toolchain-jammy install clang clang-tidy clang-format lld
     - for f in /usr/lib/llvm/bin/*; do sudo ln -sf "$f" /usr/bin; done
     - rm -rf /var/lib/apt/lists/*
-    
-  build_archlinux:
     - export token=$TOKEN
     - git clone --depth=1 https://github.com/Brew-Tea/TLinux-Kernel -b blazing && cd TLinux-Kernel
     - wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
