@@ -23,9 +23,9 @@ tasks:
         cmake lz4 zstd dracut python3 \
         software-properties-common clang gcc llvm lldb lld clangd \
         flex bison perl build-essential:native bc rsync \
-        libelf-dev:native libssl-dev:native bison \
+        libelf-dev libssl-dev bison \
         libssl-dev git zip flex cpio openssl \
-        libncurses5-dev openjdk-11-jdk linux-headers-$(uname -r) libelf-dev
+        libncurses5-dev openjdk-11-jdk
       - run: wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
       - run: echo "deb http://apt.llvm.org/jammy llvm-toolchain-jammy main" | tee /etc/apt/sources.list.d/llvm.list
       - run: apt-get -qq update
@@ -56,9 +56,9 @@ tasks:
         cmake lz4 zstd dracut python3 \
         software-properties-common clang gcc llvm lldb lld clangd \
         flex bison perl build-essential:native bc rsync \
-        libelf-dev:native libssl-dev:native bison \
+        libelf-dev libssl-dev bison \
         libssl-dev git zip flex cpio openssl \
-        libncurses5-dev openjdk-11-jdk linux-headers-$(uname -r) libelf-dev
+        libncurses5-dev openjdk-11-jdk
       - run: wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
       - run: echo "deb http://apt.llvm.org/jammy llvm-toolchain-jammy main" | tee /etc/apt/sources.list.d/llvm.list
       - run: apt-get -qq update
