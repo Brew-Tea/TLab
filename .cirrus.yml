@@ -34,8 +34,6 @@ task:
     - wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
     - chmod +x build.sh
     - ./build.sh --debian
-
-
 task:
   container:
     image: ubuntu:latest
