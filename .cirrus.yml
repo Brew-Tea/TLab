@@ -1,67 +1,72 @@
 environment:
   GITHUB_TOKEN: ENCRYPTED[4eee154cf5115af7e0bc219dde0760ac5297ef211c4756887b2a7207a4e3aa351d83d16e452b7e29534b78faf59c6dd8]
-  TOKEN: ENCRYPTED[a77b3829002ea906d09a5fab98b3a57d2dce38e14a75bbd45a9ded8e3489f70a76f8b97f67918cedcd416e5371c6c882]
   BOT_API_KEY: ENCRYPTED[a77b3829002ea906d09a5fab98b3a57d2dce38e14a75bbd45a9ded8e3489f70a76f8b97f67918cedcd416e5371c6c882]
   PD_API_KEY: ENCRYPTED[b434243f96f0572ea728f5aa8f4539008302068a04bbdf81df5b42436bd8ce23bc5023d85522194593c2cd4b4f9ac09f]
-  
-task:
-  container:
-    image: xealea/kernel:build
-    platform: linux
-    cpu: 8
-    memory: 32G
-    
-  build_script:
-    - export DEBIAN_FRONTEND=noninteractive
-    - apt-get update
-    - apt-get install -y apt-utils gnupg2 wget ca-certificates apt-transport-https \
-      alien autoconf automake cmake dpkg-dev file make patch \
-      libc6-dev locales git curl sudo zip unzip tar xz-utils make \
-      cmake lz4 zstd dracut python3 \
-      software-properties-common clang gcc llvm lldb lld clangd \
-      flex bison perl build-essential:native bc rsync \
-      libelf-dev:native libssl-dev:native bison \
-      libssl-dev git zip flex cpio openssl \
-      libncurses5-dev openjdk-11-jdk linux-headers-$(uname -r) libelf-dev
-     - wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
-     - echo "deb http://apt.llvm.org/jammy llvm-toolchain-jammy main" | tee /etc/apt/sources.list.d/llvm.list
-     - apt-get -qq update
-     - apt-get -qqy -t llvm-toolchain-jammy install clang clang-tidy clang-format lld
-     - for f in /usr/lib/llvm/bin/*; do sudo ln -sf "$f" /usr/bin; done
-     - rm -rf /var/lib/apt/lists/*
-     - export token=$TOKEN
-     - git clone --depth=1 https://github.com/Brew-Tea/TLinux-Kernel -b blazing && cd TLinux-Kernel
-     - wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
-     - chmod +x build.sh
-     - ./build.sh --debian
-    
-task:
-  container:
-    image: xealea/kernel:build
-    platform: linux
-    cpu: 8
-    memory: 32G
-    
-  build_script:
-    - export DEBIAN_FRONTEND=noninteractive
-    - apt-get update
-    - apt-get install -y apt-utils gnupg2 wget ca-certificates apt-transport-https \
-      alien autoconf automake cmake dpkg-dev file make patch \
-      libc6-dev locales git curl sudo zip unzip tar xz-utils make \
-      cmake lz4 zstd dracut python3 \
-      software-properties-common clang gcc llvm lldb lld clangd \
-      flex bison perl build-essential:native bc rsync \
-      libelf-dev:native libssl-dev:native bison \
-      libssl-dev git zip flex cpio openssl \
-      libncurses5-dev openjdk-11-jdk linux-headers-$(uname -r) libelf-dev
-     - wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
-     - echo "deb http://apt.llvm.org/jammy llvm-toolchain-jammy main" | tee /etc/apt/sources.list.d/llvm.list
-     - apt-get -qq update
-     - apt-get -qqy -t llvm-toolchain-jammy install clang clang-tidy clang-format lld
-     - for f in /usr/lib/llvm/bin/*; do sudo ln -sf "$f" /usr/bin; done
-     - rm -rf /var/lib/apt/lists/*
-     - export token=$TOKEN
-     - git clone --depth=1 https://github.com/Brew-Tea/TLinux-Kernel -b blazing && cd TLinux-Kernel
-     - wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
-     - chmod +x build.sh
-     - ./build.sh --archlinux
+
+tasks:
+  build_debian:
+    container:
+      image: xealea/kernel:build
+      platform: linux
+      cpu: 8
+      memory: 32G
+
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+      - token=$TOKEN
+
+    steps:
+      - run: apt-get update
+      - run: apt-get install -y apt-utils gnupg2 wget ca-certificates apt-transport-https \
+        alien autoconf automake cmake dpkg-dev file make patch \
+        libc6-dev locales git curl sudo zip unzip tar xz-utils make \
+        cmake lz4 zstd dracut python3 \
+        software-properties-common clang gcc llvm lldb lld clangd \
+        flex bison perl build-essential:native bc rsync \
+        libelf-dev:native libssl-dev:native bison \
+        libssl-dev git zip flex cpio openssl \
+        libncurses5-dev openjdk-11-jdk linux-headers-$(uname -r) libelf-dev
+      - run: wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+      - run: echo "deb http://apt.llvm.org/jammy llvm-toolchain-jammy main" | tee /etc/apt/sources.list.d/llvm.list
+      - run: apt-get -qq update
+      - run: apt-get -qqy -t llvm-toolchain-jammy install clang clang-tidy clang-format lld
+      - run: for f in /usr/lib/llvm/bin/*; do sudo ln -sf "$f" /usr/bin; done
+      - run: rm -rf /var/lib/apt/lists/*
+      - run: git clone --depth=1 https://github.com/Brew-Tea/TLinux-Kernel -b blazing && cd TLinux-Kernel
+      - run: wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
+      - run: chmod +x build.sh
+      - run: ./build.sh --debian
+
+  build_archlinux:
+    container:
+      image: xealea/kernel:build
+      platform: linux
+      cpu: 8
+      memory: 32G
+
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+      - token=$TOKEN
+
+    steps:
+      - run: apt-get update
+      - run: apt-get install -y apt-utils gnupg2 wget ca-certificates apt-transport-https \
+        alien autoconf automake cmake dpkg-dev file make patch \
+        libc6-dev locales git curl sudo zip unzip tar xz-utils make \
+        cmake lz4 zstd dracut python3 \
+        software-properties-common clang gcc llvm lldb lld clangd \
+        flex bison perl build-essential:native bc rsync \
+        libelf-dev:native libssl-dev:native bison \
+        libssl-dev git zip flex cpio openssl \
+        libncurses5-dev openjdk-11-jdk linux-headers-$(uname -r) libelf-dev
+      - run: wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+      - run: echo "deb http://apt.llvm.org/jammy llvm-toolchain-jammy main" | tee /etc/apt/sources.list.d/llvm.list
+      - run: apt-get -qq update
+      - run: apt-get -qqy -t llvm-toolchain-jammy install clang clang-tidy clang-format lld
+      - run: for f in /usr/lib/llvm/bin/*; do sudo ln -sf "$f" /usr/bin; done
+      - run: rm -rf /var/lib/apt/lists/*
+      - run: git clone --depth=1 https://github.com/Brew-Tea/TLinux-Kernel -b blazing && cd TLinux-Kernel
+      - run: wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
+      - run: chmod +x build.sh
+      - run: ./build.sh --archlinux
+      
