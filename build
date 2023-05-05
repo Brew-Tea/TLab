@@ -1,19 +1,7 @@
 #!/bin/bash
 export token=$TOKEN
 export CI_CHANNEL_ID=-1001721818658
-apt-get install -y openssl libssl-dev
-# export TYPE=STABLE
-# export DEVICE=munch
-export KBUILD_BUILD_USER=TLinux
-export KBUILD_BUILD_HOST=LLC
-# git clone --depth=1 https://$GITHUB_TOKEN@github.com/Tea-Droid/TMunch-Kernel -b TS
-# cd TMunch-Kernel
-git clone --depth=1 https://$GITHUB_TOKEN@github.com/Tea-Droid/TLinux-Kernel -b blazing
-cd TLinux-Kernel
-git clone --depth=1 https://$GITHUB_TOKEN@github.com/Tea-Droid/scripts-build
-cd scripts-build/x86
-# chmod +x setup
-chmod +x build
-# ./setup --aosp-clang
-# ./build --aosp-clang --lto
-./build
+git clone --depth=1 https://github.com/Brew-Tea/TLinux-Kernel -b blazing && cd TLinux-Kernel
+wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
+chmod +x build.sh
+./build.sh --debian
