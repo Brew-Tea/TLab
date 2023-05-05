@@ -13,8 +13,8 @@ task:
     
   build_script:
     - export DEBIAN_FRONTEND=noninteractive
-    - apt update
-    - apt install -y apt-utils gnupg2 wget ca-certificates apt-transport-https \
+    - apt-get update
+    - apt-get install -y apt-utils gnupg2 wget ca-certificates apt-transport-https \
       alien autoconf automake cmake dpkg-dev file make patch \
       libc6-dev locales git curl sudo zip unzip tar xz-utils make \
       cmake lz4 zstd dracut python3 \
@@ -44,8 +44,8 @@ task:
     
   build_script:
     - export DEBIAN_FRONTEND=noninteractive
-    - apt update
-    - apt install -y apt-utils gnupg2 wget ca-certificates apt-transport-https \
+    - apt-get update
+    - apt-get install -y apt-utils gnupg2 wget ca-certificates apt-transport-https \
       alien autoconf automake cmake dpkg-dev file make patch \
       libc6-dev locales git curl sudo zip unzip tar xz-utils make \
       cmake lz4 zstd dracut python3 \
