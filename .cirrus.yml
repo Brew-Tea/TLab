@@ -12,23 +12,5 @@ task:
     memory: 32G
     
   build_script: 
-  ````- apt-get update
-      - apt-get install -y apt-utils gnupg2 wget ca-certificates apt-transport-https \
-        alien autoconf automake cmake dpkg-dev file make patch \
-        libc6-dev locales git curl sudo zip unzip tar xz-utils make \
-        cmake lz4 zstd dracut python3 \
-        software-properties-common clang gcc llvm lldb lld clangd \
-        flex bison perl build-essential:native bc rsync \
-        libelf-dev libssl-dev bison \
-        libssl-dev git zip flex cpio openssl \
-        libncurses5-dev openjdk-11-jdk
-      - run: wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
-      - run: echo "deb http://apt.llvm.org/jammy llvm-toolchain-jammy main" | tee /etc/apt/sources.list.d/llvm.list
-      - run: apt-get -qq update
-      - run: apt-get -qqy -t llvm-toolchain-jammy install clang clang-tidy clang-format lld
-      - run: for f in /usr/lib/llvm/bin/*; do sudo ln -sf "$f" /usr/bin; done
-      - run: rm -rf /var/lib/apt/lists/*
-      - run: git clone --depth=1 https://github.com/Brew-Tea/TLinux-Kernel -b blazing && cd TLinux-Kernel
-      - run: wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
-      - run: chmod +x build.sh
-      - run: ./build.sh --debian
+    - chmod +x build
+    - ./build
