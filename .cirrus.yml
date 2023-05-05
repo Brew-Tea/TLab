@@ -69,4 +69,3 @@ tasks:
       - run: wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
       - run: chmod +x build.sh
       - run: ./build.sh --archlinux
-      
