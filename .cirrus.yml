@@ -4,63 +4,79 @@ environment:
   BOT_API_KEY: ENCRYPTED[a77b3829002ea906d09a5fab98b3a57d2dce38e14a75bbd45a9ded8e3489f70a76f8b97f67918cedcd416e5371c6c882]
   PD_API_KEY: ENCRYPTED[b434243f96f0572ea728f5aa8f4539008302068a04bbdf81df5b42436bd8ce23bc5023d85522194593c2cd4b4f9ac09f]
 
-task:
-  container:
-    image: ubuntu:latest
-    platform: linux
-    cpu: 8
-    memory: 32G
-    
-  build_script:
-    - export DEBIAN_FRONTEND=noninteractive
-    - apt update
-    - apt install -y apt-utils gnupg2 wget ca-certificates apt-transport-https \
-      alien autoconf automake cmake dpkg-dev file make patch \
-      libc6-dev locales git curl sudo zip unzip tar xz-utils make \
-      cmake lz4 zstd dracut python3 \
-      software-properties-common clang gcc llvm lldb lld clangd \
-      flex bison perl build-essential:native bc rsync \
-      libelf-dev:native libssl-dev:native bison \
-      libssl-dev git zip flex cpio openssl \
-      libncurses5-dev openjdk-11-jdk
-    - wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
-    - echo "deb http://apt.llvm.org/jammy llvm-toolchain-jammy main" | tee /etc/apt/sources.list.d/llvm.list
-    - apt-get -qq update
-    - apt-get -qqy -t llvm-toolchain-jammy install clang clang-tidy clang-format lld
-    - for f in /usr/lib/llvm/bin/*; do sudo ln -sf "$f" /usr/bin; done
-    - rm -rf /var/lib/apt/lists/*
-    - export token=$TOKEN
-    - git clone --depth=1 https://github.com/Brew-Tea/TLinux-Kernel -b blazing && cd TLinux-Kernel
-    - wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
-    - chmod +x build.sh
-    - ./build.sh --debian
-task:
-  container:
-    image: ubuntu:latest
-    platform: linux
-    cpu: 8
-    memory: 32G
-    
-   build_script:
-    - export DEBIAN_FRONTEND=noninteractive
-    - apt update
-    - apt install -y apt-utils gnupg2 wget ca-certificates apt-transport-https \
-      alien autoconf automake cmake dpkg-dev file make patch \
-      libc6-dev locales git curl sudo zip unzip tar xz-utils make \
-      cmake lz4 zstd dracut python3 \
-      software-properties-common clang gcc llvm lldb lld clangd \
-      flex bison perl build-essential:native bc rsync \
-      libelf-dev:native libssl-dev:native bison \
-      libssl-dev git zip flex cpio openssl \
-      libncurses5-dev openjdk-11-jdk
-    - wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
-    - echo "deb http://apt.llvm.org/jammy llvm-toolchain-jammy main" | tee /etc/apt/sources.list.d/llvm.list
-    - apt-get -qq update
-    - apt-get -qqy -t llvm-toolchain-jammy install clang clang-tidy clang-format lld
-    - for f in /usr/lib/llvm/bin/*; do sudo ln -sf "$f" /usr/bin; done
-    - rm -rf /var/lib/apt/lists/*
-    - export token=$TOKEN
-    - git clone --depth=1 https://github.com/Brew-Tea/TLinux-Kernel -b blazing && cd TLinux-Kernel
-    - wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
-    - chmod +x build.sh
-    - ./build.sh --archlinux
+tasks:
+  build:
+    container:
+      image: ubuntu:latest
+      platform: linux
+      cpu: 8
+      memory: 32G
+      
+    steps:
+      - run:
+          name: Update system and install packages
+          command: |
+            export DEBIAN_FRONTEND=noninteractive
+            apt update
+            apt install -y apt-utils gnupg2 wget ca-certificates apt-transport-https \
+              alien autoconf automake cmake dpkg-dev file make patch \
+              libc6-dev locales git curl sudo zip unzip tar xz-utils make \
+              cmake lz4 zstd dracut python3 \
+              software-properties-common clang gcc llvm lldb lld clangd \
+              flex bison perl build-essential:native bc rsync \
+              libelf-dev:native libssl-dev:native bison \
+              libssl-dev git zip flex cpio openssl \
+              libncurses5-dev openjdk-11-jdk
+            wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+            echo "deb http://apt.llvm.org/jammy llvm-toolchain-jammy main" | tee /etc/apt/sources.list.d/llvm.list
+            apt-get -qq update
+            apt-get -qqy -t llvm-toolchain-jammy install clang clang-tidy clang-format lld
+            for f in /usr/lib/llvm/bin/*; do sudo ln -sf "$f" /usr/bin; done
+            rm -rf /var/lib/apt/lists/*
+      - run:
+          name: Clone repository and build
+          command: |
+            export token=$TOKEN
+            git clone --depth=1 https://github.com/Brew-Tea/TLinux-Kernel -b blazing && cd TLinux-Kernel
+            wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
+            chmod +x build.sh
+            ./build.sh --debian
+
+tasks:
+  build:
+    container:
+      image: ubuntu:latest
+      platform: linux
+      cpu: 8
+      memory: 32G
+      
+    steps:
+      - run:
+          name: Update system and install packages
+          command: |
+            export DEBIAN_FRONTEND=noninteractive
+            apt update
+            apt install -y apt-utils gnupg2 wget ca-certificates apt-transport-https \
+              alien autoconf automake cmake dpkg-dev file make patch \
+              libc6-dev locales git curl sudo zip unzip tar xz-utils make \
+              cmake lz4 zstd dracut python3 \
+              software-properties-common clang gcc llvm lldb lld clangd \
+              flex bison perl build-essential:native bc rsync \
+              libelf-dev:native libssl-dev:native bison \
+              libssl-dev git zip flex cpio openssl \
+              libncurses5-dev openjdk-11-jdk
+            wget -nv -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+            echo "deb http://apt.llvm.org/jammy llvm-toolchain-jammy main" | tee /etc/apt/sources.list.d/llvm.list
+            apt-get -qq update
+            apt-get -qqy -t llvm-toolchain-jammy install clang clang-tidy clang-format lld
+            for f in /usr/lib/llvm/bin/*; do sudo ln -sf "$f" /usr/bin; done
+            rm -rf /var/lib/apt/lists/*
+      - run:
+          name: Clone repository and build
+          command: |
+            export token=$TOKEN
+            git clone --depth=1 https://github.com/Brew-Tea/TLinux-Kernel -b blazing && cd TLinux-Kernel
+            wget https://github.com/Brew-Tea/scripts-build/raw/master/x86/build.sh
+            chmod +x build.sh
+            ./build.sh --archlinux
+            
